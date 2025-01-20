@@ -1,7 +1,8 @@
 # 多模态情感分析--基于 CLIP 的多模态深度融合互注意力模型
 
 ## 项目简介
-本项目为完成多模态情感分析任务，搭建并测试了多个模型，其中model_definition.py中的MultimodalCrossAttentionClassifier和MultimodalClipClassifierWithAttention是主要的两个模型，使用CLIP和自定义的互注意力模块分别实现了图文之间的深度融合和浅层融合（具体方法见实验报告），在此基础上对要求的测试集完成了预测，保存在./src/test_without_label.txt
+本项目为完成多模态情感分析任务，搭建并测试了多个模型，其中model_definition.py中的MultimodalCrossAttentionClassifier(见下图)和MultimodalClipClassifierWithAttention是主要的两个模型，使用CLIP和自定义的互注意力模块分别实现了图文之间的深度融合和浅层融合（具体方法见实验报告），在此基础上对要求的测试集完成了预测，保存在./src/test_without_label.txt
+![](./src/model_arc.png)
 ## 文件结构
 ```
 本项目
@@ -41,3 +42,5 @@ python版本：3.10
 1) 先运行 ```python data_preprocessing.py``` 得到 train_split.txt & val_split.txt
 2) 再运行 ```python train.py``` 进行训练+网格搜索
 3) 最后运行 ```python predicate.py``` 得到预测文件
+## 参考的仓库
+[CLIP](https://github.com/openai/CLIP "OpenAI CLIP 项目")
