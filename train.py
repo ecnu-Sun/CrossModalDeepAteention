@@ -15,7 +15,8 @@ from tqdm import tqdm
 import random
 import matplotlib.pyplot as plt
 
-from model_definition import MultimodalCrossAttentionClassifier,MultimodalClipClassifier,MultimodalClipClassifierWithAttention,MultimodalClipClassifierWithWeight,MultimodalClipClassifierWithInfoNCE
+from model_definition import MultimodalCrossAttentionClassifier, MultimodalClipClassifier, \
+    MultimodalClipClassifierWithAttention, MultimodalClipClassifierWithWeight, MultimodalClipClassifierWithInfoNCE
 
 
 class MultimodalDataset(Dataset):
@@ -160,7 +161,6 @@ def train_model(
     print('train_df')
     print(train_df.head(10))
 
-
     from transformers import AutoProcessor
     processor = AutoProcessor.from_pretrained("./models/clip-vit-base-patch32")
 
@@ -225,12 +225,15 @@ def train_model(
             for ep in epochs_list:
                 train_loader = DataLoader(train_dataset, batch_size=bs, sampler=sampler, collate_fn=collate_fn)
                 val_loader = DataLoader(val_dataset, batch_size=bs, shuffle=False, collate_fn=collate_fn)
+                # 这里配置所使用的模型，五选一
+                model = MultimodalCrossAttentionClassifier().to(device)
 
-                model = MultimodalCrossAttentionClassifier(
-                    pretrained_model_name="./models/clip-vit-base-patch32",
-                    hidden_dim=768,
-                    num_labels=3
-                ).to(device)
+                # model = MultimodalClipClassifier().to(device)
+
+                # model = MultimodalClipClassifierWithAttention().to(device)
+
+                # model = MultimodalClipClassifierWithWeight().to(device)
+                # model = MultimodalClipClassifierWithInfoNCE().to(device)
 
                 optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
                 criterion = torch.nn.CrossEntropyLoss()

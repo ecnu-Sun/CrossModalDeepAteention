@@ -179,3 +179,25 @@
 [Epoch 8] LR=3e-06, BS=64, train_loss=0.0573, val_loss=0.6455, val_acc=0.7450
 [Epoch 9] LR=3e-06, BS=64, train_loss=0.0432, val_loss=0.7158, val_acc=0.7650
 [Epoch 10] LR=3e-06, BS=64, train_loss=0.0444, val_loss=0.6905, val_acc=0.7375
+多模态深融合无过采样：
+[Epoch 1] LR=3e-06, BS=64, train_loss=0.8382, val_loss=1.0774, val_acc=0.5975
+[Epoch 2] LR=3e-06, BS=64, train_loss=0.9460, val_loss=0.9281, val_acc=0.5975
+[Epoch 3] LR=3e-06, BS=64, train_loss=0.8857, val_loss=0.8892, val_acc=0.6050
+[Epoch 4] LR=3e-06, BS=64, train_loss=0.7160, val_loss=0.7720, val_acc=0.7025
+[Epoch 5] LR=3e-06, BS=64, train_loss=0.5017, val_loss=0.8355, val_acc=0.7150
+[Epoch 6] LR=3e-06, BS=64, train_loss=0.3560, val_loss=0.7658, val_acc=0.7525
+[Epoch 7] LR=3e-06, BS=64, train_loss=0.2483, val_loss=0.7455, val_acc=0.7650
+[Epoch 8] LR=3e-06, BS=64, train_loss=0.1793, val_loss=0.8113, val_acc=0.7750
+[Epoch 9] LR=3e-06, BS=64, train_loss=0.1491, val_loss=0.8688, val_acc=0.7650
+[Epoch 10] LR=3e-06, BS=64, train_loss=0.1317, val_loss=0.8851, val_acc=0.7650
+多模态深融合有过采样有数据增强：
+[Epoch 1] LR=3e-06, BS=64, train_loss=0.9511, val_loss=0.7574, val_acc=0.7075
+[Epoch 2] LR=3e-06, BS=64, train_loss=0.4332, val_loss=0.6743, val_acc=0.7350
+[Epoch 3] LR=3e-06, BS=64, train_loss=0.1899, val_loss=0.7297, val_acc=0.7525
+[Epoch 4] LR=3e-06, BS=64, train_loss=0.1026, val_loss=0.7594, val_acc=0.7725
+[Epoch 5] LR=3e-06, BS=64, train_loss=0.0652, val_loss=1.0181, val_acc=0.7300
+[Epoch 6] LR=3e-06, BS=64, train_loss=0.0456, val_loss=0.9666, val_acc=0.7575
+[Epoch 7] LR=3e-06, BS=64, train_loss=0.0415, val_loss=0.9389, val_acc=0.7600
+[Epoch 8] LR=3e-06, BS=64, train_loss=0.0402, val_loss=0.9986, val_acc=0.7625
+[Epoch 9] LR=3e-06, BS=64, train_loss=0.0296, val_loss=0.9892, val_acc=0.7625
+[Epoch 10] LR=3e-06, BS=64, train_loss=0.0351, val_loss=1.0573, val_acc=0.7575

@@ -86,7 +86,7 @@ if __name__ == "__main__":
     test_txt = "./src/test_without_label.txt"
     data_folder = "./src/data"
     best_model_path = "./models/best_model_lr3e-06_bs64_ep3.pt"
-    output_path = "./src/test_predicted.txt"
+    output_path = "src/test_without_label.txt"
 
     predict_test_set(
         test_txt=test_txt,
