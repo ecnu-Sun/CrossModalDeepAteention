@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
 ##############################################################################
-# 1. 读取数据：假设 train.txt 中有两列 guid, tag(= negative/neutral/positive)
+# 1. 读取数据
 ##############################################################################
 
 def load_text_and_image(

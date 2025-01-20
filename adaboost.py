@@ -18,7 +18,7 @@ class NeuralNetworkEstimator(BaseEstimator, ClassifierMixin):
         model = tf.keras.Sequential([
             tf.keras.layers.Dense(64, input_dim=self.input_dim, activation='relu'),
             tf.keras.layers.Dense(64, input_dim=self.input_dim, activation='relu'),
-            tf.keras.layers.Dense(3, activation='softmax')  # 假设是三分类问题
+            tf.keras.layers.Dense(3, activation='softmax')
         ])
         model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
         return model
