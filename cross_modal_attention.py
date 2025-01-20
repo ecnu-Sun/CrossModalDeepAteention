@@ -67,4 +67,4 @@ class CrossModalTransformer(nn.Module):
         x, y = text_feats, image_feats
         for layer in self.layers:
             x, y = layer(x, y)
-        return x, y  # 返回融合后的序列
+        return x, y

@@ -15,8 +15,9 @@ def load_data(train_txt_path):
 
 def rotate_images(data_folder, df, angles=None):
     """
-    读取df中的guid对应的图片并旋转指定角度，以数据增强的方式保存到同一目录(新文件名带_rotXXX后缀)。
-    训练文本标签不变，但图片增加3份。
+    读取df中的guid对应的图片并旋转指定角度，保存到同一目录
+    训练文本标签不变，但图片增加3份
+    这个方法没有提升模型性能，因此弃用
     """
     if angles is None:
         angles = [180]
@@ -50,20 +51,21 @@ def create_train_val_split(df, val_ratio=0.1, random_seed=42):
 
 
 if __name__ == "__main__":
-    # 可在此进行数据预处理的执行示例
+    """
+    执行:
+    1) 先运行 python data_preprocessing.py （本文件）得到 train_split.txt & val_split.txt
+    2) 再运行 python train.py 进行训练+网格搜索
+    3) 最后运行 python predicate.py 得到预测文件
+    """
     data_folder = "./src/data"
     train_txt = "./src/train.txt"
 
-    # 1. 加载数据
     df = load_data(train_txt)
 
-    # 2. 数据增强（旋转图片）
-    rotate_images(data_folder, df, angles=[90, 180, 270])
+    #rotate_images(data_folder, df, angles=[90, 180, 270])
 
-    # 3. 划分训练集和验证集
     train_df, val_df = create_train_val_split(df, val_ratio=0.1, random_seed=42)
 
-    # 4. 将划分结果写回文件或保存为csv等
     train_df.to_csv("./src/train_split.txt", sep='\t', header=False, index=False)
     val_df.to_csv("./src/val_split.txt", sep='\t', header=False, index=False)
     print("数据预处理完成，已将train/val划分结果保存。")

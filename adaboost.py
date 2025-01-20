@@ -7,7 +7,6 @@ from sklearn.ensemble import AdaBoostClassifier
 from sklearn.base import BaseEstimator, ClassifierMixin
 
 
-# 自定义神经网络基学习器
 class NeuralNetworkEstimator(BaseEstimator, ClassifierMixin):
     def __init__(self, input_dim, epochs=5, batch_size=32):
         self.input_dim = input_dim
@@ -25,7 +24,6 @@ class NeuralNetworkEstimator(BaseEstimator, ClassifierMixin):
         return model
 
     def fit(self, X, y, sample_weight=None):
-        # 这里可以将类标签的数量存储到类标签属性中
         self.classes_ = np.unique(y)
         self.model.fit(X, y, sample_weight=sample_weight, epochs=self.epochs, batch_size=self.batch_size)
         return self
@@ -37,7 +35,6 @@ class NeuralNetworkEstimator(BaseEstimator, ClassifierMixin):
         return self.model.predict(X)
 
 
-# 数据加载函数
 def load_data(data_dir="./src/data/", train_file="./src/train.txt"):
     train_df = pd.read_csv(train_file, sep=",", header=0, names=["guid", "tag"])
 
@@ -51,7 +48,7 @@ def load_data(data_dir="./src/data/", train_file="./src/train.txt"):
         txt_path = os.path.join(data_dir, guid + ".txt")
 
         if not os.path.isfile(txt_path):
-            print(f"警告: 找不到文件 {txt_path}，跳过该条数据。")
+            print(f"找不到文件 {txt_path}")
             continue
 
         with open(txt_path, "r", encoding="ascii", errors="replace") as f:
@@ -63,7 +60,6 @@ def load_data(data_dir="./src/data/", train_file="./src/train.txt"):
     return texts, labels
 
 
-# 预处理文本和标签
 def preprocess_texts_and_labels(texts, labels, vocab_size=5000, max_len=50):
     label_mapping = {
         "negative": 0,
@@ -81,34 +77,26 @@ def preprocess_texts_and_labels(texts, labels, vocab_size=5000, max_len=50):
     return x_data, y_data, tokenizer
 
 
-# 主函数
 def main():
-    # 1) 读取数据 (train.txt + ./src/data/ 下面的多文件)
     data_dir = "./src/data/"
     train_file = "./src/train.txt"
     texts, labels = load_data(data_dir, train_file)
     print(f"共读取到 {len(texts)} 条文本数据。")
 
-    # 2) 预处理: 分词、数字化、padding, 标签数字化
     x_data, y_data, tokenizer = preprocess_texts_and_labels(texts, labels, vocab_size=50000, max_len=120)
     print("文本序列形状:", x_data.shape)
     print("标签形状:", y_data.shape)
 
-    # 3) 划分训练集和验证集 (10% 用于验证)
     x_train, x_val, y_train, y_val = train_test_split(x_data, y_data, test_size=0.1, random_state=42)
     print("训练集大小:", x_train.shape[0])
     print("验证集大小:", x_val.shape[0])
 
-    # 4) 创建自定义神经网络基学习器
     nn_estimator = NeuralNetworkEstimator(input_dim=x_train.shape[1], epochs=10, batch_size=32)
 
-    # 5) 创建 AdaBoost 模型，使用神经网络作为基学习器
     ada_boost = AdaBoostClassifier(base_estimator=nn_estimator, n_estimators=20)
 
-    # 6) 训练 AdaBoost 模型
     ada_boost.fit(x_train, y_train)
 
-    # 7) 在验证集上评估准确率
     val_acc = ada_boost.score(x_val, y_val)
     print(f"验证集准确率: {val_acc:.4f}")
 

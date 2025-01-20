@@ -8,16 +8,17 @@ from transformers import AutoProcessor
 from train import MultimodalDataset
 from model_definition import MultimodalCrossAttentionClassifier
 
+
 def predict_test_set(
-    test_txt,
-    model_path,
-    output_path,
-    data_folder,
-    use_text=True,
-    use_image=True
+        test_txt,
+        model_path,
+        output_path,
+        data_folder,
+        use_text=True,
+        use_image=True
 ):
     """
-    使用训练好的最佳模型，对test_without_label.txt进行预测，并写回文件。
+    使用训练好的，对test_without_label.txt进行预测，并写回文件。
     """
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -71,17 +72,20 @@ def predict_test_set(
             all_preds.append(label_map[pred])
 
     df['label'] = all_preds
-    df.to_csv(output_path, sep=',', index=False, header=['guid','tag'])
+    df.to_csv(output_path, sep=',', index=False, header=['guid', 'tag'])
     print(f"预测完成，结果已保存到 {output_path}")
+
 
 if __name__ == "__main__":
     """
-    执行示例:
-    python predict.py
+    执行:
+    1) 先运行 python data_preprocessing.py 得到 train_split.txt & val_split.txt
+    2) 再运行 python train.py 进行训练+网格搜索
+    3) 最后运行 python predicate.py（本文件） 得到预测文件
     """
     test_txt = "./src/test_without_label.txt"
     data_folder = "./src/data"
-    best_model_path = "./models/best_model_lr3e-06_bs64_ep3.pt"  # 请根据训练脚本输出的最佳模型文件修改
+    best_model_path = "./models/best_model_lr3e-06_bs64_ep3.pt"
     output_path = "./src/test_predicted.txt"
 
     predict_test_set(
